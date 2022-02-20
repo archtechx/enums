@@ -1,10 +1,13 @@
 # Enums
 
-A collection\* of enum helpers for PHP.
+A collection of enum helpers for PHP.
 
-\* Currently there's only one helper — [`InvokableCases`](#invokablecases) — but the goal of the package is to provide general purpose enum helpers.
+- [`InvokableCases`](#invokablecases)
+- [`Names`](#names)
+- [`Values`](#values)
+- [`Options`](#options)
 
-You can read more about the idea on [Twitter](https://twitter.com/archtechx/status/1495158228757270528). I originally wanted to include that helper in [`archtechx/helpers`](https://github.com/archtechx/helpers), but it makes more sense to make it a separate dependency and use it *inside* the other package.
+You can read more about the idea on [Twitter](https://twitter.com/archtechx/status/1495158228757270528). I originally wanted to include the helper in [`archtechx/helpers`](https://github.com/archtechx/helpers), but it makes more sense to make it a separate dependency and use it *inside* the other package.
 
 ## Installation
 
@@ -70,6 +73,75 @@ public function updateStatus(TaskStatus $status)
 {
     $this->record->setStatus($status());
 }
+```
+
+### Names
+
+This helper returns a list of case *names* in the enum.
+
+#### Apply the trait on your enum
+```php
+use ArchTech\Enums\Names;
+
+enum TaskStatus: int
+{
+    use Names;
+
+    case INCOMPLETE = 0;
+    case COMPLETED = 1;
+    case CANCELED = 2;
+}
+```
+
+#### Use the `names()` method
+```php
+TaskStatus::names(); // ['INCOMPLETE', 'COMPLETED', 'CANCELED']
+```
+
+### Values
+
+This helper returns a list of case *values* in the enum.
+
+#### Apply the trait on your enum
+```php
+use ArchTech\Enums\Values;
+
+enum TaskStatus: int
+{
+    use Values;
+
+    case INCOMPLETE = 0;
+    case COMPLETED = 1;
+    case CANCELED = 2;
+}
+```
+
+#### Use the `values()` method
+```php
+TaskStatus::values(); // [0, 1, 2]
+```
+
+### Options
+
+This helper returns an associative array of case names and values.
+
+#### Apply the trait on your enum
+```php
+use ArchTech\Enums\Options;
+
+enum TaskStatus: int
+{
+    use Options;
+
+    case INCOMPLETE = 0;
+    case COMPLETED = 1;
+    case CANCELED = 2;
+}
+```
+
+#### Use the `options()` method
+```php
+TaskStatus::options(); // ['INCOMPLETE' => 0, 'COMPLETED' => 1, 'CANCELED' => 2]
 ```
 
 ## Development
