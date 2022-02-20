@@ -4,7 +4,7 @@ A collection\* of enum helpers for PHP.
 
 \* Currently there's only one helper — [`InvokableCases`](#invokablecases) — but the goal of the package is to provide general purpose enum helpers.
 
-You can read more about the idea on [Twitter](https://twitter.com/archtechx/status/1495158228757270528). I originally wanted to include that helper in [`archtechx/helpers`](https://github.com/archtechx/helpers), but it makes more sense to make this a separate dependency and use it *inside* the other package.
+You can read more about the idea on [Twitter](https://twitter.com/archtechx/status/1495158228757270528). I originally wanted to include that helper in [`archtechx/helpers`](https://github.com/archtechx/helpers), but it makes more sense to make it a separate dependency and use it *inside* the other package.
 
 ## Installation
 
@@ -18,7 +18,7 @@ composer require archtechx/enums
 
 ### InvokableCases
 
-This helper lets you get the value of a backed enum by "invoking it" — either statically (`MyEnum::FOO()` instead of `MyEnum::FOO`), or as an instance (`$enum()`).
+This helper lets you get the value of a backed enum by "invoking" it — either statically (`MyEnum::FOO()` instead of `MyEnum::FOO`), or as an instance (`$enum()`).
 
 That way, you can use enums as array keys:
 ```php
@@ -28,14 +28,14 @@ That way, you can use enums as array keys:
 ],
 ```
 
-Or just the underlying primitives for any other use cases:
+Or access the underlying primitives for any other use cases:
 ```php
 public function updateStatus(int $status): void;
 
 $task->updateStatus(TaskStatus::COMPLETED());
 ```
 
-Without [having to append](https://twitter.com/archtechx/status/1495158237137494019) `->value` to everything.
+The main point: this is all without [having to append](https://twitter.com/archtechx/status/1495158237137494019) `->value` to everything.
 
 This approach also has *decent* IDE support. You get autosuggestions while typing, and then you just append `()`:
 ```php
