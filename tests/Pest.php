@@ -11,6 +11,9 @@
 |
 */
 
+use ArchTech\Enums\InvokableCases;
+use ArchTech\Enums\Options;
+
 uses(ArchTech\Enums\Tests\TestCase::class)->in('Pest');
 
 /*
@@ -42,4 +45,12 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+enum Status: int
+{
+    use InvokableCases, Options;
+
+    case PENDING = 0;
+    case DONE = 1;
 }
