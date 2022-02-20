@@ -12,7 +12,9 @@
 */
 
 use ArchTech\Enums\InvokableCases;
+use ArchTech\Enums\Names;
 use ArchTech\Enums\Options;
+use ArchTech\Enums\Values;
 
 uses(ArchTech\Enums\Tests\TestCase::class)->in('Pest');
 
@@ -49,7 +51,7 @@ function something()
 
 enum Status: int
 {
-    use InvokableCases, Options;
+    use InvokableCases, Options, Names, Values;
 
     case PENDING = 0;
     case DONE = 1;
