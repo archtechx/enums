@@ -1,0 +1,56 @@
+name: CI
+
+env:
+  COMPOSE_INTERACTIVE_NO_CLI: 1
+  PHP_CS_FIXER_IGNORE_ENV: 1
+  MYSQL_PORT: 3307
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+on:
+  push:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  pest:
+    name: Tests (Pest) L${{ matrix.laravel }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        laravel: [8, 9]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Start docker containers
+      run: docker-compose up -d
+    - name: Install composer dependencies
+      run: composer require "illuminate/support:^${{ matrix.laravel }}.0"
+    - name: Run tests
+      run: vendor/bin/pest
+
+  phpstan:
+    name: Static analysis (PHPStan)
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install composer dependencies
+      run: composer install
+    - name: Run phpstan
+      run: vendor/bin/phpstan analyse
+
+  php-cs-fixer:
+    name: Code style (php-cs-fixer)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install php-cs-fixer
+        run: composer global require friendsofphp/php-cs-fixer
+      - name: Run php-cs-fixer
+        run: $HOME/.composer/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php
+      - name: Commit changes from php-cs-fixer
+        uses: EndBug/add-and-commit@v5
+        with:
+          author_name: "PHP CS Fixer"
+          author_email: "phpcsfixer@example.com"
+          message: Fix code style (php-cs-fixer)

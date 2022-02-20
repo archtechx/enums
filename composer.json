@@ -1,0 +1,41 @@
+{
+    "name": "archtechx/replace",
+    "description": "",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Samuel Štancl",
+            "email": "samuel@archte.ch"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ArchTech\\REPLACE\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ArchTech\\REPLACE\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^8.24|^9.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.9|^7.0",
+        "nunomaduro/larastan": "^0.6.10",
+        "pestphp/pest": "^1.2",
+        "pestphp/pest-plugin-laravel": "^1.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ArchTech\\REPLACE\\PackageServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

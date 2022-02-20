@@ -1,0 +1,56 @@
+#!/bin/bash
+set -e
+
+offer_run() {
+    read -p "For more output, run $1. Run it now (Y/n)? " run
+
+    case ${run:0:1} in
+        n|N )
+            exit 1
+        ;;
+        * )
+            $1
+        ;;
+    esac
+
+    exit 1
+}
+
+if (php-cs-fixer fix --dry-run --config=.php-cs-fixer.php > /dev/null 2>/dev/null); then
+    echo '✅ php-cs-fixer OK'
+else
+    read -p "⚠️ php-cs-fixer found issues. Fix (Y/n)? " fix
+    case ${fix:0:1} in
+        n|N )
+            echo '❌ php-cs-fixer FAIL'
+            offer_run 'php-cs-fixer fix --config=.php-cs-fixer.php'
+        ;;
+        * )
+            if (php-cs-fixer fix --config=.php-cs-fixer.php > /dev/null 2>/dev/null); then
+                echo '✅ php-cs-fixer OK'
+            else
+                echo '❌ php-cs-fixer FAIL'
+                offer_run 'php-cs-fixer fix --config=.php-cs-fixer.php'
+            fi
+        ;;
+    esac
+fi
+
+if (./vendor/bin/phpstan analyse > /dev/null 2>/dev/null); then
+    echo '✅ PHPStan OK'
+else
+    echo '❌ PHPStan FAIL'
+    offer_run './vendor/bin/phpstan analyse'
+fi
+
+(MYSQL_PORT=3307 docker-compose up -d > /dev/null 2>/dev/null) || true
+
+if (./vendor/bin/pest > /dev/null 2>/dev/null); then
+    echo '✅ PEST OK'
+else
+    echo '❌ PEST FAIL'
+    offer_run './vendor/bin/pest'
+fi
+
+echo '=================='
+echo '✅ Everything OK'
