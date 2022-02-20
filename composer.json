@@ -1,6 +1,6 @@
 {
-    "name": "archtechx/replace",
-    "description": "",
+    "name": "archtechx/enums",
+    "description": "Helpers that make PHP enums more lovable",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -11,17 +11,16 @@
     ],
     "autoload": {
         "psr-4": {
-            "ArchTech\\REPLACE\\": "src/"
+            "ArchTech\\Enums\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ArchTech\\REPLACE\\Tests\\": "tests/"
+            "ArchTech\\Enums\\Tests\\": "tests/"
         }
     },
     "require": {
-        "php": "^8.0",
-        "illuminate/support": "^8.24|^9.0"
+        "php": "^8.1"
     },
     "require-dev": {
         "orchestra/testbench": "^6.9|^7.0",
@@ -29,13 +28,11 @@
         "pestphp/pest": "^1.2",
         "pestphp/pest-plugin-laravel": "^1.0"
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "ArchTech\\REPLACE\\PackageServiceProvider"
-            ]
-        }
-    },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
 }

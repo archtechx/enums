@@ -3,7 +3,6 @@ name: CI
 env:
   COMPOSE_INTERACTIVE_NO_CLI: 1
   PHP_CS_FIXER_IGNORE_ENV: 1
-  MYSQL_PORT: 3307
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 on:
@@ -21,8 +20,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Start docker containers
-      run: docker-compose up -d
     - name: Install composer dependencies
       run: composer require "illuminate/support:^${{ matrix.laravel }}.0"
     - name: Run tests
