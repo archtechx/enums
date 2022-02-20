@@ -1,6 +1,6 @@
 {
     "name": "archtechx/enums",
-    "description": "Helpers that make PHP enums more lovable",
+    "description": "Helpers for making PHP enums more lovable.",
     "type": "library",
     "license": "MIT",
     "authors": [
