@@ -43,8 +43,6 @@ else
     offer_run './vendor/bin/phpstan analyse'
 fi
 
-(MYSQL_PORT=3307 docker-compose up -d > /dev/null 2>/dev/null) || true
-
 if (./vendor/bin/pest > /dev/null 2>/dev/null); then
     echo '✅ PEST OK'
 else
