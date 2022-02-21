@@ -9,10 +9,6 @@ trait Options
     /** Get an associative array of [case name => case value]. */
     public static function options(): array
     {
-        return array_reduce(static::cases(), function ($options, $case) {
-            $options[$case->name] = $case->value;
-
-            return $options;
-        }, []);
+        return array_column(static::cases(), 'value', 'name');
     }
 }
