@@ -11,7 +11,7 @@ You can read more about the idea on [Twitter](https://twitter.com/archtechx/stat
 
 ## Installation
 
-Laravel 8 or 9 are required. PHP 8.1+ is required.
+PHP 8.1+ is required.
 
 ```sh
 composer require archtechx/enums
