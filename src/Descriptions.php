@@ -9,6 +9,6 @@ trait Descriptions
      */
     public static function descriptions(): array
     {
-        return array_map(fn($enum) => $enum->getDescription(), static::cases());
+        return array_map(fn($case) => $case->getDescription(), static::cases());
     }
 }
