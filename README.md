@@ -173,7 +173,7 @@ enum TaskStatus: int implements DescriptionInterface
 }
 ```
 
-#### Use the `options()` method
+#### Use the `descriptions()` method
 ```php
 TaskStatus::descriptions();
 /**
