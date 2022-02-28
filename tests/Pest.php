@@ -15,6 +15,8 @@ use ArchTech\Enums\InvokableCases;
 use ArchTech\Enums\Names;
 use ArchTech\Enums\Options;
 use ArchTech\Enums\Values;
+use ArchTech\Enums\Descriptions;
+use ArchTech\Enums\DescriptionInterface;
 
 uses(ArchTech\Enums\Tests\TestCase::class)->in('Pest');
 
@@ -49,10 +51,20 @@ function something()
     // ..
 }
 
-enum Status: int
+enum Status: int implements DescriptionInterface
 {
-    use InvokableCases, Options, Names, Values;
+    use InvokableCases, Options, Names, Values, Descriptions;
 
     case PENDING = 0;
     case DONE = 1;
+
+    public function getDescription(): string
+    {
+        return match ($this) {
+            self::PENDING => 'this is `PENDING` description',
+            self::DONE => 'this is `DONE` description',
+        };
+    }
+
+
 }

@@ -6,6 +6,7 @@ A collection of enum helpers for PHP.
 - [`Names`](#names)
 - [`Values`](#values)
 - [`Options`](#options)
+- [`Descriptions`](#descriptions)
 
 You can read more about the idea on [Twitter](https://twitter.com/archtechx/status/1495158228757270528). I originally wanted to include the `InvokableCases` helper in [`archtechx/helpers`](https://github.com/archtechx/helpers), but it makes more sense to make it a separate dependency and use it *inside* the other package.
 
@@ -143,6 +144,47 @@ enum TaskStatus: int
 ```php
 TaskStatus::options(); // ['INCOMPLETE' => 0, 'COMPLETED' => 1, 'CANCELED' => 2]
 ```
+
+### Descriptions
+
+This helper returns an associative array of case descriptions.
+
+#### Apply the trait on your enum
+```php
+use ArchTech\Enums\Descriptions;
+use ArchTech\Enums\DescriptionInterface;
+
+enum TaskStatus: int implements DescriptionInterface
+{
+    use Descriptions;
+
+    case INCOMPLETE = 0;
+    case COMPLETED = 1;
+    case CANCELED = 2;
+    
+    public function getDescription(): string
+    {
+        return match ($this) {
+            self::INCOMPLETE => 'this is `INCOMPLETE` description',
+            self::COMPLETED => 'this is `COMPLETED` description',
+            self::CANCELED => 'this is `CANCELED` description'
+        };
+    }
+}
+```
+
+#### Use the `options()` method
+```php
+TaskStatus::descriptions();
+/**
+[
+    0 => 'this is `INCOMPLETE` description', 
+    1 => 'this is `COMPLETED` description', 
+    2 => 'this is `CANCELED` description'
+]
+*/
+```
+
 
 ## Development
 
