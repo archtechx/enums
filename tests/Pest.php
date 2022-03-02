@@ -16,7 +16,6 @@ use ArchTech\Enums\Names;
 use ArchTech\Enums\Options;
 use ArchTech\Enums\Values;
 use ArchTech\Enums\Descriptions;
-use ArchTech\Enums\DescriptionInterface;
 
 uses(ArchTech\Enums\Tests\TestCase::class)->in('Pest');
 
@@ -51,7 +50,7 @@ function something()
     // ..
 }
 
-enum Status: int implements DescriptionInterface
+enum Status: int
 {
     use InvokableCases, Options, Names, Values, Descriptions;
 

@@ -152,9 +152,8 @@ This helper returns an associative array of case descriptions.
 #### Apply the trait on your enum
 ```php
 use ArchTech\Enums\Descriptions;
-use ArchTech\Enums\DescriptionInterface;
 
-enum TaskStatus: int implements DescriptionInterface
+enum TaskStatus: int
 {
     use Descriptions;
 
