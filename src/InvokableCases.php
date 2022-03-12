@@ -9,17 +9,17 @@ trait InvokableCases
     /** Return the enum's value when it's $invoked(). */
     public function __invoke()
     {
-        return $this->value;
+        return $this->value ?? $this->name;
     }
 
-    /** Return the enum's value when it's called ::STATICALLY(). */
+    /** Return the enum's value or name when it's called ::STATICALLY(). */
     public static function __callStatic($name, $args)
     {
         $cases = static::cases();
 
         foreach ($cases as $case) {
             if ($case->name === $name) {
-                return $case->value;
+                return $case instanceof \BackedEnum ? $case->value : $case->name;
             }
         }
 

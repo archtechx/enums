@@ -9,6 +9,11 @@ trait Options
     /** Get an associative array of [case name => case value]. */
     public static function options(): array
     {
-        return array_column(static::cases(), 'value', 'name');
+        $cases = static::cases();
+        if (reset($cases) instanceof \BackedEnum) {
+            return array_column($cases, 'value', 'name');
+        }
+
+        return array_column($cases, 'name');
     }
 }
