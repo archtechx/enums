@@ -11,6 +11,7 @@
 |
 */
 
+use ArchTech\Enums\From;
 use ArchTech\Enums\InvokableCases;
 use ArchTech\Enums\Names;
 use ArchTech\Enums\Options;
@@ -51,8 +52,16 @@ function something()
 
 enum Status: int
 {
-    use InvokableCases, Options, Names, Values;
+    use InvokableCases, Options, Names, Values, From;
 
     case PENDING = 0;
     case DONE = 1;
+}
+
+enum Role
+{
+    use InvokableCases, Options, Names, Values, From;
+
+    case ADMIN;
+    case GUEST;
 }

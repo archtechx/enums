@@ -6,6 +6,7 @@ A collection of enum helpers for PHP.
 - [`Names`](#names)
 - [`Values`](#values)
 - [`Options`](#options)
+- [`From`](#from)
 
 You can read more about the idea on [Twitter](https://twitter.com/archtechx/status/1495158228757270528). I originally wanted to include the `InvokableCases` helper in [`archtechx/helpers`](https://github.com/archtechx/helpers), but it makes more sense to make it a separate dependency and use it *inside* the other package.
 
@@ -142,6 +143,65 @@ enum TaskStatus: int
 #### Use the `options()` method
 ```php
 TaskStatus::options(); // ['INCOMPLETE' => 0, 'COMPLETED' => 1, 'CANCELED' => 2]
+```
+
+### From
+
+This helper adds `from()` and `tryFrom()` to pure enums, and adds `fromName()` and `tryFromName()` to all enums.
+
+#### Important Notes:
+* `BackedEnum` instances already implement their own `from()` and `tryFrom()` methods, which will not be overridden by this trait. Attempting to override those methods in a `BackedEnum` causes a fatal error.
+* Pure enums do not actually have an internal index, so rearranging the order of cases will not break other code but it will create inconsistent behaviour with the `from()` and `tryFrom()` methods
+
+#### Apply the trait on your enum
+```php
+use ArchTech\Enums\From;
+
+enum TaskStatus: int
+{
+    use From;
+
+    case INCOMPLETE = 0;
+    case COMPLETED = 1;
+    case CANCELED = 2;
+}
+
+enum Role
+{
+    use From;
+    
+    case ADMINISTRATOR;
+    case SUBSCRIBER;
+    case GUEST;
+}
+```
+
+#### Use the `from()` method
+```php
+Role::from(0); // Role::ADMINISTRATOR
+Role::from(5); // Error: \ValueError
+```
+
+#### Use the `tryFrom()` method
+```php
+Role::tryFrom(2); // Role::GUEST
+Role::tryFrom(5); // null
+```
+
+#### Use the `fromName()` method
+```php
+TaskStatus::fromName('INCOMPLETE'); // TaskStatus::INCOMPLETE
+Role::fromName('SUBSCRIBER'); // Role::SUBSCRIBER
+TaskStatus::fromName('MISSING'); // Error: \ValueError
+Role::fromName('HACKER'); // Error: \ValueError
+```
+
+#### Use the `tryFromName()` method
+```php
+TaskStatus::tryFromName('COMPLETED'); // TaskStatus::COMPLETED
+TaskStatus::tryFromName('NOTHING'); // null
+Role::tryFromName('GUEST'); // Role::GUEST
+Role::tryFromName('TESTER'); // null
 ```
 
 ## Development
