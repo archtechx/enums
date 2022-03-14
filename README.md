@@ -21,7 +21,7 @@ composer require archtechx/enums
 
 ### InvokableCases
 
-This helper lets you get the value of a backed enum, or the name of a pure enum by "invoking" it — either statically (`MyEnum::FOO()` instead of `MyEnum::FOO`), or as an instance (`$enum()`).
+This helper lets you get the value of a backed enum, or the name of a pure enum, by "invoking" it — either statically (`MyEnum::FOO()` instead of `MyEnum::FOO`), or as an instance (`$enum()`).
 
 That way, you can use enums as array keys:
 ```php
@@ -122,7 +122,7 @@ Role::names(); // ['ADMINISTRATOR', 'SUBSCRIBER', 'GUEST']
 
 ### Values
 
-This helper returns a list of case *values* in the enum. _**NB:** pure enums don't have values, so this will only ever return an empty array._
+This helper returns a list of case *values* for backed enums, or a list of case *names* for pure enums (making this functionally equivalent to [`::names()`](#names) for pure Enums)
 
 #### Apply the trait on your enum
 ```php
@@ -150,12 +150,12 @@ enum Role
 #### Use the `values()` method
 ```php
 TaskStatus::values(); // [0, 1, 2]
-Role::values(); // []
+Role::values(); // ['ADMINISTRATOR', 'SUBSCRIBER', 'GUEST']
 ```
 
 ### Options
 
-This helper returns an associative array of case names and values for backed enums, or an array of names for pure enums (making this functionally equivalent to `::names()` for pure Enums).
+This helper returns an associative array of case names and values for backed enums, or a list of names for pure enums (making this functionally equivalent to [`::names()`](#names) for pure Enums).
 
 #### Apply the trait on your enum
 ```php
