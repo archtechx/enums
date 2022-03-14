@@ -151,7 +151,7 @@ This helper adds `from()` and `tryFrom()` to pure enums, and adds `fromName()` a
 
 #### Important Notes:
 * `BackedEnum` instances already implement their own `from()` and `tryFrom()` methods, which will not be overridden by this trait. Attempting to override those methods in a `BackedEnum` causes a fatal error.
-* Pure enums do not actually have an internal index, so rearranging the order of cases will not break other code but it will create inconsistent behaviour with the `from()` and `tryFrom()` methods
+* Pure enums only have named cases and not values, so the `from()` and `tryFrom()` methods are functionally equivalent to `fromName()` and `tryFromName()`
 
 #### Apply the trait on your enum
 ```php
@@ -178,22 +178,22 @@ enum Role
 
 #### Use the `from()` method
 ```php
-Role::from(0); // Role::ADMINISTRATOR
-Role::from(5); // Error: \ValueError
+Role::from('ADMINISTRATOR'); // Role::ADMINISTRATOR
+Role::from('NOBODY'); // Error: ValueError
 ```
 
 #### Use the `tryFrom()` method
 ```php
-Role::tryFrom(2); // Role::GUEST
-Role::tryFrom(5); // null
+Role::tryFrom('GUEST'); // Role::GUEST
+Role::tryFrom('NEVER'); // null
 ```
 
 #### Use the `fromName()` method
 ```php
 TaskStatus::fromName('INCOMPLETE'); // TaskStatus::INCOMPLETE
+TaskStatus::fromName('MISSING'); // Error: ValueError
 Role::fromName('SUBSCRIBER'); // Role::SUBSCRIBER
-TaskStatus::fromName('MISSING'); // Error: \ValueError
-Role::fromName('HACKER'); // Error: \ValueError
+Role::fromName('HACKER'); // Error: ValueError
 ```
 
 #### Use the `tryFromName()` method

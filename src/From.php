@@ -4,44 +4,46 @@ declare(strict_types=1);
 
 namespace ArchTech\Enums;
 
+use ValueError;
+
 trait From
 {
     /**
-     * Gets the Enum by index for "Pure" enums.
+     * Gets the Enum by name, if it exists, for "Pure" enums.
      *
      * This will not override the `from()` method on BackedEnums
      *
-     * @throws \ValueError
+     * @throws ValueError
      */
-    static public function from(int $case): static
+    public static function from(string $case): static
     {
-        return static::cases()[$case] ?? throw new \ValueError($case . ' is not a valid unit for enum "' . get_called_class() . '"');
+        return static::fromName($case);
     }
 
     /**
-     * Gets the Enum by index, if it exists for "Pure" enums.
+     * Gets the Enum by name, if it exists, for "Pure" enums.
      *
      * This will not override the `tryFrom()` method on BackedEnums
      */
-    static public function tryFrom(int $case): ?static
+    public static function tryFrom(string $case): ?static
     {
-        return static::cases()[$case] ?? null;
+        return static::tryFromName($case);
     }
 
     /**
      * Gets the Enum by name.
      *
-     * @throws \ValueError
+     * @throws ValueError
      */
-    static public function fromName(string $case): static
+    public static function fromName(string $case): static
     {
-        return static::tryFromName($case) ?? throw new \ValueError('"' . $case . '" is not a valid name for enum "' . get_called_class() . '"');
+        return static::tryFromName($case) ?? throw new ValueError('"' . $case . '" is not a valid name for enum "' . static::class . '"');
     }
 
     /**
      * Gets the Enum by name, if it exists.
      */
-    static public function tryFromName(string $case): ?static
+    public static function tryFromName(string $case): ?static
     {
         $cases = array_filter(
             static::cases(),

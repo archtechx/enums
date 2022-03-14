@@ -16,20 +16,20 @@ it('does not override the default BackedEnum tryFrom method with errors')
     ->expect(Status::tryFrom(2))
     ->toBe(null);
 
-it('can select a case by index with from() for pure enums')
-    ->expect(Role::from(0))
+it('can select a case by name with from() for pure enums')
+    ->expect(Role::from('ADMIN'))
     ->toBe(Role::ADMIN);
 
-it('throws a value error when selecting a non-existent case by index with from() for pure enums', function () {
-    Role::from(2);
-})->throws(\ValueError::class, '2 is not a valid unit for enum "Role"');
+it('throws a value error when selecting a non-existent case with from() for pure enums', function () {
+    Role::from('NOBODY');
+})->throws(\ValueError::class, '"NOBODY" is not a valid name for enum "Role"');
 
-it('can select a case by index with tryFrom() for pure enums')
-    ->expect(Role::tryFrom(1))
+it('can select a case by name with tryFrom() for pure enums')
+    ->expect(Role::tryFrom('GUEST'))
     ->toBe(Role::GUEST);
 
-it('can returns null when selecting a non-existent case by index with tryFrom() for pure enums')
-    ->expect(Role::tryFrom(2))
+it('can returns null when selecting a non-existent case by name with tryFrom() for pure enums')
+    ->expect(Role::tryFrom('NOBODY'))
     ->toBe(null);
 
 it('can select a case by name with fromName() for pure enums')
@@ -37,15 +37,15 @@ it('can select a case by name with fromName() for pure enums')
     ->toBe(Role::ADMIN);
 
 it('throws a value error when selecting a non-existent case by name with fromName() for pure enums', function () {
-    Role::fromName('NOTHING');
-})->throws(\ValueError::class, '"NOTHING" is not a valid name for enum "Role"');
+    Role::fromName('NOBODY');
+})->throws(\ValueError::class, '"NOBODY" is not a valid name for enum "Role"');
 
 it('can select a case by name with tryFromName() for pure enums')
     ->expect(Role::tryFromName('GUEST'))
     ->toBe(Role::GUEST);
 
 it('returns null when selecting a non-existent case by name with tryFromName() for pure enums')
-    ->expect(Role::tryFromName('NOTHING'))
+    ->expect(Role::tryFromName('NOBODY'))
     ->toBe(null);
 
 it('can select a case by name with fromName() for backed enums')
