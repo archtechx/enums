@@ -50,6 +50,6 @@ trait From
             fn ($c) => $c->name === $case
         );
 
-        return array_pop($cases) ?? null;
+        return array_values($cases)[0] ?? null;
     }
 }
