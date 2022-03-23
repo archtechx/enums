@@ -56,3 +56,11 @@ enum Status: int
     case PENDING = 0;
     case DONE = 1;
 }
+
+enum Role
+{
+    use InvokableCases, Options, Names, Values;
+
+    case ADMIN;
+    case GUEST;
+}
