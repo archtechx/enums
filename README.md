@@ -22,7 +22,7 @@ composer require archtechx/enums
 
 ### InvokableCases
 
-This helper lets you get the value of a backed enum by "invoking" it — either statically (`MyEnum::FOO()` instead of `MyEnum::FOO`), or as an instance (`$enum()`).
+This helper lets you get the value of a backed enum, or the name of a pure enum, by "invoking" it — either statically (`MyEnum::FOO()` instead of `MyEnum::FOO`), or as an instance (`$enum()`).
 
 That way, you can use enums as array keys:
 ```php
@@ -59,6 +59,15 @@ enum TaskStatus: int
     case COMPLETED = 1;
     case CANCELED = 2;
 }
+
+enum Role
+{
+    use InvokableCases;
+
+    case ADMINISTRATOR;
+    case SUBSCRIBER;
+    case GUEST;
+}
 ```
 
 #### Use static calls to get the primitive value
@@ -66,13 +75,16 @@ enum TaskStatus: int
 TaskStatus::INCOMPLETE(); // 0
 TaskStatus::COMPLETED(); // 1
 TaskStatus::CANCELED(); // 2
+Role::ADMINISTRATOR(); // 'ADMINISTRATOR'
+Role::SUBSCRIBER(); // 'SUBSCRIBER'
+Role::GUEST(); // 'GUEST'
 ```
 
 #### Invoke instances to get the primitive value
 ```php
-public function updateStatus(TaskStatus $status)
+public function updateStatus(TaskStatus $status, Role $role)
 {
-    $this->record->setStatus($status());
+    $this->record->setStatus($status(), $role());
 }
 ```
 
@@ -92,16 +104,26 @@ enum TaskStatus: int
     case COMPLETED = 1;
     case CANCELED = 2;
 }
+
+enum Role
+{
+    use Names;
+
+    case ADMINISTRATOR;
+    case SUBSCRIBER;
+    case GUEST;
+}
 ```
 
 #### Use the `names()` method
 ```php
 TaskStatus::names(); // ['INCOMPLETE', 'COMPLETED', 'CANCELED']
+Role::names(); // ['ADMINISTRATOR', 'SUBSCRIBER', 'GUEST']
 ```
 
 ### Values
 
-This helper returns a list of case *values* in the enum.
+This helper returns a list of case *values* for backed enums, or a list of case *names* for pure enums (making this functionally equivalent to [`::names()`](#names) for pure Enums)
 
 #### Apply the trait on your enum
 ```php
@@ -115,16 +137,26 @@ enum TaskStatus: int
     case COMPLETED = 1;
     case CANCELED = 2;
 }
+
+enum Role
+{
+    use Values;
+
+    case ADMINISTRATOR;
+    case SUBSCRIBER;
+    case GUEST;
+}
 ```
 
 #### Use the `values()` method
 ```php
 TaskStatus::values(); // [0, 1, 2]
+Role::values(); // ['ADMINISTRATOR', 'SUBSCRIBER', 'GUEST']
 ```
 
 ### Options
 
-This helper returns an associative array of case names and values.
+This helper returns an associative array of case names and values for backed enums, or a list of names for pure enums (making this functionally equivalent to [`::names()`](#names) for pure Enums).
 
 #### Apply the trait on your enum
 ```php
@@ -138,11 +170,21 @@ enum TaskStatus: int
     case COMPLETED = 1;
     case CANCELED = 2;
 }
+
+enum Role
+{
+    use Options;
+
+    case ADMINISTRATOR;
+    case SUBSCRIBER;
+    case GUEST;
+}
 ```
 
 #### Use the `options()` method
 ```php
 TaskStatus::options(); // ['INCOMPLETE' => 0, 'COMPLETED' => 1, 'CANCELED' => 2]
+Role::options(); // ['ADMINISTRATOR', 'SUBSCRIBER', 'GUEST']
 ```
 
 ### From
