@@ -1,7 +1,5 @@
 <?php
 
-use ValueError;
-
 it('does not override the default BackedEnum from method')
     ->expect(Status::from(0))
     ->toBe(Status::PENDING);
