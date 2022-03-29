@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ArchTech\Enums\Meta;
 
 abstract class MetaProperty
 {
-    public function __construct(
+    final public function __construct(
         public mixed $value,
     ) {
         $this->value = $this->transform($value);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ArchTech\Enums\Meta;
 
 use ReflectionAttribute;
@@ -11,7 +13,7 @@ class Reflection
     /**
      * Get the meta properties enabled on an Enum.
      *
-     * @param Enum&\ArchTech\Enums\Metadata $enum
+     * @param \Enum&\ArchTech\Enums\Metadata $enum
      * @return string[]|array<\class-string<MetaProperty>>
      */
     public static function metaProperties(mixed $enum): array
@@ -34,9 +36,7 @@ class Reflection
     /**
      * Get the value of a meta property on the provided enum.
      *
-     * @param \class-string<MetaProperty> $property
-     * @param Enum $enum
-     * @return mixed
+     * @param \Enum $enum
      */
     public static function metaValue(string $metaProperty, mixed $enum): mixed
     {
