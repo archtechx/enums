@@ -27,7 +27,10 @@ class Reflection
         ));
 
         if ($attributes) {
-            return $attributes[0]->newInstance()->metaProperties;
+            /** @var Meta $meta */
+            $meta = $attributes[0]->newInstance();
+
+            return $meta->metaProperties;
         }
 
         return [];

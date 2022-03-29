@@ -9,7 +9,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS)]
 class Meta
 {
-    /** @var MetaProperty[] */
+    /** @var string[]|class-string<MetaProperty>[] */
     public array $metaProperties;
 
     public function __construct(array|string ...$metaProperties)
