@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ArchTech\Enums;
 
 use ArchTech\Enums\Meta\MetaProperty;
