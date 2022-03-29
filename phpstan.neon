@@ -11,6 +11,10 @@ parameters:
         - Illuminate\Routing\Route
 
     ignoreErrors:
+        - '#Access to an undefined static property static\(ArchTech\\Enums\\Meta\\MetaProperty\)\:\:\$method#'
+        - '#invalid typehint type ArchTech\\Enums\\Metadata#'
+        - '#invalid typehint type Enum#'
+        - '#on an unknown class Enum#'
         # -
         #     message: '#Offset (.*?) does not exist on array\|null#'
         #     paths:

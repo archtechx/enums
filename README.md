@@ -7,6 +7,7 @@ A collection of enum helpers for PHP.
 - [`Values`](#values)
 - [`Options`](#options)
 - [`From`](#from)
+- [`Metadata`](#metadata)
 
 You can read more about the idea on [Twitter](https://twitter.com/archtechx/status/1495158228757270528). I originally wanted to include the `InvokableCases` helper in [`archtechx/helpers`](https://github.com/archtechx/helpers), but it makes more sense to make it a separate dependency and use it *inside* the other package.
 
@@ -211,7 +212,7 @@ enum TaskStatus: int
 enum Role
 {
     use From;
-    
+
     case ADMINISTRATOR;
     case SUBSCRIBER;
     case GUEST;
@@ -245,6 +246,125 @@ TaskStatus::tryFromName('NOTHING'); // null
 Role::tryFromName('GUEST'); // Role::GUEST
 Role::tryFromName('TESTER'); // null
 ```
+
+### Metadata
+
+This trait lets you add metadata to enum cases.
+
+#### Apply the trait on your enum
+```php
+use ArchTech\Enums\Metadata;
+use ArchTech\Enums\Meta\Meta;
+use App\Enums\MetaProperties\{Description, Color};
+
+#[Meta(Description::class, Color::class)]
+enum TaskStatus: int
+{
+    use Metadata;
+
+    #[Description('Incomplete Task')] #[Color('red')]
+    case INCOMPLETE = 0;
+
+    #[Description('Completed Task')] #[Color('green')]
+    case COMPLETED = 1;
+
+    #[Description('Canceled Task')] #[Color('gray')]
+    case CANCELED = 2;
+}
+```
+
+Explanation:
+- `Description` and `Color` are userland class attributes — meta properties
+- The `#[Meta]` call enables those two meta properties on the enum
+- Each case must have a defined description & color (in this example)
+
+#### Access the metadata
+
+```php
+TaskStatus::INCOMPLETE->description(); // 'Incomplete Task'
+TaskStatus::COMPLETED->color(); // 'green'
+```
+
+#### Creating meta properties
+
+Each meta property (= attribute used on a case) needs to exist as a class.
+```php
+#[Attribute]
+class Color extends MetaProperty {}
+
+#[Attribute]
+class Description extends MetaProperty {}
+```
+
+Inside the class, you can customize a few things. For instance, you may want to use a different method name than the one derived from the class name (`Description` becomes `description()` by default). To do that, override the `method()` method on the meta property:
+```php
+#[Attribute]
+class Description extends MetaProperty
+{
+    public static function method(): string
+    {
+        return 'note';
+    }
+}
+```
+
+With the code above, the description of a case will be accessible as `TaskStatus::INCOMPLETE->note()`.
+
+Another thing you can customize is the passed value. For instance, to wrap a color name like `text-{$color}-500`, you'd add the following `transform()` method:
+```php
+#[Attribute]
+class Color extends MetaProperty
+{
+    protected function transform(mixed $value): mixed
+    {
+        return "text-{$color}-500";
+    }
+}
+```
+
+And now the returned color will be correctly transformed:
+```php
+TaskStatus::COMPLETED->color(); // 'text-green-500'
+```
+
+#### Use the `fromMeta()` method
+```php
+TaskStatus::fromMeta(Color::make('green')); // TaskStatus::COMPLETED
+TaskStatus::fromMeta(Color::make('blue')); // Error: ValueError
+```
+
+#### Use the `tryFromMeta()` method
+```php
+TaskStatus::tryFromMeta(Color::make('green')); // TaskStatus::COMPLETED
+TaskStatus::tryFromMeta(Color::make('blue')); // null
+```
+
+#### Recommendation: use annotations and traits
+
+If you'd like to add better IDE support for the metadata getter methods, you can use `@method` annotations:
+
+```php
+/**
+ * @method string description()
+ * @method string color()
+ */
+#[Meta(Description::class, Color::class)]
+enum TaskStatus: int
+{
+    use Metadata;
+
+    #[Description('Incomplete Task')] #[Color('red')]
+    case INCOMPLETE = 0;
+
+    #[Description('Completed Task')] #[Color('green')]
+    case COMPLETED = 1;
+
+    #[Description('Canceled Task')] #[Color('gray')]
+    case CANCELED = 2;
+}
+```
+
+And if you're using the same meta property in multiple enums, you can create a dedicated trait that includes this `@method` annotation.
 
 ## Development
 
