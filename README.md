@@ -366,6 +366,15 @@ enum TaskStatus: int
 
 And if you're using the same meta property in multiple enums, you can create a dedicated trait that includes this `@method` annotation.
 
+## PHPStan
+
+To assist PHPStan when using invokable cases, you can include the PHPStan extensions into your own `phpstan.neon` file:
+
+```yaml
+includes:
+  - ./vendor/archtechx/enums/extension.neon
+```
+
 ## Development
 
 Run all checks locally:

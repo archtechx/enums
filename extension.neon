@@ -1,0 +1,2 @@
+includes:
+  - ./src/PHPStan/InvokableCases/extension.neon
