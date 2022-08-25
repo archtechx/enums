@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ArchTech\Enums;
 
 use BackedEnum;
+use ReflectionEnum;
 
 trait InvokableCases
 {
@@ -17,14 +18,18 @@ trait InvokableCases
     /** Return the enum's value or name when it's called ::STATICALLY(). */
     public static function __callStatic($name, $args)
     {
-        $cases = static::cases();
+        static $valueMap = [];
 
-        foreach ($cases as $case) {
-            if ($case->name === $name) {
-                return $case instanceof BackedEnum ? $case->value : $case->name;
-            }
+        if (isset($valueMap[$name])) {
+            return $valueMap[$name];
         }
 
-        throw new Exceptions\UndefinedCaseError(static::class, $name);
+        $reflEnum = new ReflectionEnum(static::class);
+        if (! $reflEnum->hasCase($name)) {
+            throw new Exceptions\UndefinedCaseError(static::class, $name);
+        }
+
+        // Get the enum case, and invoke it to get the value or name
+        return $valueMap[$name] = $reflEnum->getCase($name)->getValue()();
     }
 }
