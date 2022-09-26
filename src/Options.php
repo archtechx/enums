@@ -17,4 +17,10 @@ trait Options
             ? array_column($cases, 'value', 'name')
             : array_column($cases, 'name');
     }
+    
+    /** Get an associative array of [case value => case value]. */
+    public function valueOptions(): array
+    {
+        return array_column(static::cases(), 'value', 'value');
+    }
 }
