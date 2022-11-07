@@ -317,7 +317,7 @@ class Color extends MetaProperty
 {
     protected function transform(mixed $value): mixed
     {
-        return "text-{$color}-500";
+        return "text-{$value}-500";
     }
 }
 ```
