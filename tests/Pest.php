@@ -1,6 +1,6 @@
 <?php
 
-use ArchTech\Enums\{InvokableCases, Options, Names, Values, From, Metadata};
+use ArchTech\Enums\{Comparable, InvokableCases, Options, Names, Values, From, Metadata};
 use ArchTech\Enums\Meta\Meta;
 use ArchTech\Enums\Meta\MetaProperty;
 
@@ -36,7 +36,7 @@ class Instructions extends MetaProperty
 #[Meta(Color::class, Desc::class)] // variadic syntax
 enum Status: int
 {
-    use InvokableCases, Options, Names, Values, From, Metadata;
+    use InvokableCases, Options, Names, Values, From, Metadata, Comparable;
 
     #[Color('orange')] #[Desc('Incomplete task')]
     case PENDING = 0;
@@ -49,7 +49,7 @@ enum Status: int
 #[Meta([Color::class, Desc::class, Instructions::class])] // array
 enum Role
 {
-    use InvokableCases, Options, Names, Values, From, Metadata;
+    use InvokableCases, Options, Names, Values, From, Metadata, Comparable;
 
     #[Color('indigo')]
     #[Desc('Administrator')]
