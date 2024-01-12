@@ -37,7 +37,7 @@ trait From
      */
     public static function fromName(string $case): static
     {
-        return static::tryFromName($case) ?? throw new ValueError('"' . $case . '" is not a valid name for enum "' . static::class . '"');
+        return static::tryFromName($case) ?? throw new ValueError('"' . $case . '" is not a valid name for enum ' . static::class . '');
     }
 
     /**
