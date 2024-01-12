@@ -10,7 +10,7 @@ A collection of enum helpers for PHP.
 - [`Metadata`](#metadata)
 - [`Comparable`](#comparable)
 
-You can read more about the idea on [Twitter](https://twitter.com/archtechx/status/1495158228757270528). I originally wanted to include the `InvokableCases` helper in [`archtechx/helpers`](https://github.com/archtechx/helpers), but it makes more sense to make it a separate dependency and use it *inside* the other package.
+You can read more about the original idea on [Twitter](https://twitter.com/archtechx/status/1495158228757270528).
 
 ## Installation
 
@@ -187,6 +187,27 @@ enum Role
 ```php
 TaskStatus::options(); // ['INCOMPLETE' => 0, 'COMPLETED' => 1, 'CANCELED' => 2]
 Role::options(); // ['ADMINISTRATOR', 'SUBSCRIBER', 'GUEST']
+```
+
+#### stringOptions()
+
+The trait also adds the `stringOptions()` method that can be used for generating convenient string representations of your enum options:
+```php
+// First argument is the callback, second argument is glue
+// returns "PENDING => 0, DONE => 1"
+Status::stringOptions(fn ($name, $value) => "$name => $value", ', ');
+```
+For pure enums (non-backed), the name is used in place of `$value` (meaning that both `$name` and `$value` are the same).
+
+Both arguments for this method are optional, the glue defaults to `\n` and the callback defaults to generating HTML `<option>` tags:
+```php
+// <option value="0">Pending</option>
+// <option value="1">Done</option>
+Status::stringOptions(); // backed enum
+
+// <option value="ADMIN">Admin</option>
+// <option value="GUEST">Guest</option>
+Role::stringOptions(); // pure enum
 ```
 
 ### From
@@ -369,7 +390,7 @@ And if you're using the same meta property in multiple enums, you can create a d
 
 ### Comparable
 
-This helper lets you compare enums by `is()`, `isNot()`, `in()` and `notIn()` operators.
+This trait lets you compare enums using `is()`, `isNot()`, `in()` and `notIn()`.
 
 #### Apply the trait on your enum
 ```php
