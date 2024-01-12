@@ -12,7 +12,7 @@ on:
 
 jobs:
   pest:
-    name: Tests (Pest) L${{ matrix.laravel }}
+    name: Tests (Pest) PHP${{ matrix.php }} L${{ matrix.laravel }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
