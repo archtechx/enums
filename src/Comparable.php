@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace ArchTech\Enums;
 
+use Exception;
+use Iterator;
+use IteratorAggregate;
+
 trait Comparable
 {
     public function is(mixed $enum): bool
@@ -16,12 +20,30 @@ trait Comparable
         return ! $this->is($enum);
     }
 
-    public function in(array $enums): bool
+    public function in(array|object $enums): bool
     {
-        return [] !== array_filter($enums, fn (mixed $enum) => $this->is($enum));
+        $iterator = $enums;
+
+        if (! is_array($enums)) {
+            if ($enums instanceof Iterator) {
+                $iterator = $enums;
+            } elseif ($enums instanceof IteratorAggregate) {
+                $iterator = $enums->getIterator();
+            } else {
+                throw new Exception('in() expects an iterable value');
+            }
+        }
+
+        foreach ($iterator as $item) {
+            if ($item === $this) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    public function notIn(array $enums): bool
+    public function notIn(array|object $enums): bool
     {
         return ! $this->in($enums);
     }

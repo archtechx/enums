@@ -23,10 +23,10 @@
         "php": "^8.1"
     },
     "require-dev": {
-        "orchestra/testbench": "^7.0|^8.0",
-        "nunomaduro/larastan": "^1.0|^2.4",
-        "pestphp/pest": "^1.2|^2.0",
-        "pestphp/pest-plugin-laravel": "^1.0|^2.0"
+        "orchestra/testbench": "^8.0",
+        "larastan/larastan": "^2.4",
+        "pestphp/pest": "^2.0",
+        "pestphp/pest-plugin-laravel": "^2.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
