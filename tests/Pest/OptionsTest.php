@@ -11,3 +11,19 @@ it('can return an indexed array of options from a pure enum')
         0 => 'ADMIN',
         1 => 'GUEST',
     ]);
+
+it('can return a string of options from a backed enum')
+    ->expect(Status::stringOptions(fn ($name, $value) => "$name => $value", ', '))
+    ->toBe("PENDING => 0, DONE => 1");
+
+it('can return a string of options from a pure enum')
+    ->expect(Role::stringOptions(fn ($name, $value) => "$name => $value", ', '))
+    ->toBe("ADMIN => ADMIN, GUEST => GUEST");
+
+it('returns default HTML options from backed enums')
+    ->expect(Status::stringOptions())
+    ->toBe('<option value="0">Pending</option>\n<option value="1">Done</option>');
+
+it('returns default HTML options from pure enums')
+    ->expect(Role::stringOptions())
+    ->toBe('<option value="ADMIN">Admin</option>\n<option value="GUEST">Guest</option>');
