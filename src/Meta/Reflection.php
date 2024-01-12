@@ -32,6 +32,7 @@ class Reflection
         return $metaProperties;
     }
 
+    /** @param ReflectionClass<object> $reflection */
     protected static function parseMetaProperties(ReflectionClass $reflection): array
     {
         // Only the `Meta` attribute
