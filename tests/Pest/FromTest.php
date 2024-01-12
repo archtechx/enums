@@ -4,9 +4,12 @@ it('does not override the default BackedEnum from method')
     ->expect(Status::from(0))
     ->toBe(Status::PENDING);
 
+// Shortened exception message due to inconsistency between PHP 8.1 and 8.2+
+// 8.1:  2 is not a valid backing value for enum "Status"
+// 8.2+: 2 is not a valid backing value for enum Status
 it('does not override the default BackedEnum from method with errors', function () {
     Status::from(2);
-})->throws(ValueError::class, '2 is not a valid backing value for enum Status');
+})->throws(ValueError::class, '2 is not a valid backing value for enum');
 
 it('does not override the default BackedEnum tryFrom method')
     ->expect(Status::tryFrom(1))
