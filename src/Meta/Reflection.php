@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ArchTech\Enums\Meta;
 
 use ReflectionAttribute;
+use ReflectionClass;
 use ReflectionEnumUnitCase;
 use ReflectionObject;
 
@@ -19,12 +20,22 @@ class Reflection
     public static function metaProperties(mixed $enum): array
     {
         $reflection = new ReflectionObject($enum);
+        $metaProperties = static::parseMetaProperties($reflection);
 
-        // Attributes of the `Meta` type
-        $attributes = array_values(array_filter(
-            $reflection->getAttributes(),
-            fn (ReflectionAttribute $attr) => $attr->getName() === Meta::class,
-        ));
+        // Traits except the `Metadata` trait
+        $traits = array_values(array_filter($reflection->getTraits(), fn (ReflectionClass $class) => $class->getName() !== 'ArchTech\Enums\Metadata'));
+
+        foreach ($traits as $trait) {
+            $metaProperties = array_merge($metaProperties, static::parseMetaProperties($trait));
+        }
+
+        return $metaProperties;
+    }
+
+    protected static function parseMetaProperties(ReflectionClass $reflection): array
+    {
+        // Only the `Meta` attribute
+        $attributes = $reflection->getAttributes(Meta::class);
 
         if ($attributes) {
             /** @var Meta $meta */
