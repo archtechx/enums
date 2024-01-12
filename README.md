@@ -194,18 +194,20 @@ Role::options(); // ['ADMINISTRATOR', 'SUBSCRIBER', 'GUEST']
 The trait also adds the `stringOptions()` method that can be used for generating convenient string representations of your enum options:
 ```php
 // First argument is the callback, second argument is glue
-// returns "PENDING => 0, DONE => 1"
-Status::stringOptions(fn ($name, $value) => "$name => $value", ', ');
+// returns "INCOMPLETE => 0, COMPLETED => 1, CANCELED => 2"
+TaskStatus::stringOptions(fn ($name, $value) => "$name => $value", ', ');
 ```
 For pure enums (non-backed), the name is used in place of `$value` (meaning that both `$name` and `$value` are the same).
 
 Both arguments for this method are optional, the glue defaults to `\n` and the callback defaults to generating HTML `<option>` tags:
 ```php
-// <option value="0">Pending</option>
-// <option value="1">Done</option>
-Status::stringOptions(); // backed enum
+// <option value="0">Incomplete</option>
+// <option value="1">Completed</option>
+// <option value="2">Canceled</option>
+TaskStatus::stringOptions(); // backed enum
 
-// <option value="ADMIN">Admin</option>
+// <option value="ADMINISTRATOR">Administrator</option>
+// <option value="Subscriber">Subscriber</option>
 // <option value="GUEST">Guest</option>
 Role::stringOptions(); // pure enum
 ```
