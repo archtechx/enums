@@ -6,7 +6,7 @@ it('does not override the default BackedEnum from method')
 
 it('does not override the default BackedEnum from method with errors', function () {
     Status::from(2);
-})->throws(ValueError::class, '2 is not a valid backing value for enum "Status"');
+})->throws(ValueError::class, '2 is not a valid backing value for enum Status');
 
 it('does not override the default BackedEnum tryFrom method')
     ->expect(Status::tryFrom(1))
@@ -22,7 +22,7 @@ it('can select a case by name with from() for pure enums')
 
 it('throws a value error when selecting a non-existent case with from() for pure enums', function () {
     Role::from('NOBODY');
-})->throws(ValueError::class, '"NOBODY" is not a valid name for enum "Role"');
+})->throws(ValueError::class, '"NOBODY" is not a valid name for enum Role');
 
 it('can select a case by name with tryFrom() for pure enums')
     ->expect(Role::tryFrom('GUEST'))
@@ -38,7 +38,7 @@ it('can select a case by name with fromName() for pure enums')
 
 it('throws a value error when selecting a non-existent case by name with fromName() for pure enums', function () {
     Role::fromName('NOBODY');
-})->throws(ValueError::class, '"NOBODY" is not a valid name for enum "Role"');
+})->throws(ValueError::class, '"NOBODY" is not a valid name for enum Role');
 
 it('can select a case by name with tryFromName() for pure enums')
     ->expect(Role::tryFromName('GUEST'))
@@ -54,7 +54,7 @@ it('can select a case by name with fromName() for backed enums')
 
 it('throws a value error when selecting a non-existent case by name with fromName() for backed enums', function () {
     Status::fromName('NOTHING');
-})->throws(ValueError::class, '"NOTHING" is not a valid name for enum "Status"');
+})->throws(ValueError::class, '"NOTHING" is not a valid name for enum Status');
 
 it('can select a case by name with tryFromName() for backed enums')
     ->expect(Status::tryFromName('DONE'))
