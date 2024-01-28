@@ -41,7 +41,20 @@ trait Options
         }
 
         // Default callback
-        $callback ??= fn ($name, $value) => "<option value=\"{$value}\">" . ucfirst(strtolower($name)) . '</option>';
+        $callback ??= function ($name, $value) {
+            if (str_contains($name, '_')) {
+                // Snake case
+                $words = explode('_', $name);
+            } else if (strtoupper($name) === $name) {
+                // If the entire name is uppercase without underscores, it's a single word
+                $words = [$name];
+            } else {
+                // Pascal case or camel case
+                $words = array_filter(preg_split('/(?=[A-Z])/', $name));
+            }
+
+            return "<option value=\"{$value}\">" . ucfirst(strtolower(implode(' ', $words))) . '</option>';
+        };
 
         $options = array_map($callback, array_keys($options), array_values($options));
 

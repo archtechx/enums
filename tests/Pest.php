@@ -61,3 +61,35 @@ enum Role
     #[Instructions('Guest users can only view the existing records')]
     case GUEST;
 }
+
+enum MultiWordSnakeCaseEnum
+{
+    use Options;
+
+    case FOO_BAR;
+    case BAR_BAZ;
+}
+
+enum BackedMultiWordSnakeCaseEnum: int
+{
+    use Options;
+
+    case FOO_BAR = 0;
+    case BAR_BAZ = 1;
+}
+
+enum PascalCaseEnum
+{
+    use Options;
+
+    case FooBar;
+    case BarBaz;
+}
+
+enum BackedPascalCaseEnum: int
+{
+    use Options;
+
+    case FooBar = 0;
+    case BarBaz = 1;
+}

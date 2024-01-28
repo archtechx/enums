@@ -27,3 +27,16 @@ it('returns default HTML options from backed enums')
 it('returns default HTML options from pure enums')
     ->expect(Role::stringOptions())
     ->toBe('<option value="ADMIN">Admin</option>\n<option value="GUEST">Guest</option>');
+
+it('returns default HTML options from pure enums with snake case')
+    ->expect(MultiWordSnakeCaseEnum::stringOptions())
+    ->toBe('<option value="FOO_BAR">Foo bar</option>\n<option value="BAR_BAZ">Bar baz</option>');
+
+it('returns default HTML options from backed enums with snake case')
+    ->expect(BackedMultiWordSnakeCaseEnum::stringOptions())
+    ->toBe('<option value="0">Foo bar</option>\n<option value="1">Bar baz</option>');
+
+it('returns default HTML options from pure enums with pascal case')
+    ->expect(BackedPascalCaseEnum::stringOptions())
+    ->toBe('<option value="0">Foo bar</option>\n<option value="1">Bar baz</option>');
+
