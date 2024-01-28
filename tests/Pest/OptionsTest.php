@@ -37,6 +37,10 @@ it('returns default HTML options from backed enums with snake case')
     ->toBe('<option value="0">Foo bar</option>\n<option value="1">Bar baz</option>');
 
 it('returns default HTML options from pure enums with pascal case')
+    ->expect(PascalCaseEnum::stringOptions())
+    ->toBe('<option value="FooBar">Foo bar</option>\n<option value="BarBaz">Bar baz</option>');
+
+it('returns default HTML options from backed enums with pascal case')
     ->expect(BackedPascalCaseEnum::stringOptions())
     ->toBe('<option value="0">Foo bar</option>\n<option value="1">Bar baz</option>');
 
