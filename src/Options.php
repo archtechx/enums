@@ -45,7 +45,7 @@ trait Options
             if (str_contains($name, '_')) {
                 // Snake case
                 $words = explode('_', $name);
-            } else if (strtoupper($name) === $name) {
+            } elseif (strtoupper($name) === $name) {
                 // If the entire name is uppercase without underscores, it's a single word
                 $words = [$name];
             } else {
