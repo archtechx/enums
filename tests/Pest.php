@@ -29,6 +29,17 @@ class Instructions extends MetaProperty
     }
 }
 
+#[Attribute]
+class IsActive extends MetaProperty
+{
+    public static string $method = 'isActive';
+
+    public static function defaultValue(): mixed
+    {
+        return false;
+    }
+}
+
 /**
  * @method string description()
  * @method string color()
@@ -60,6 +71,25 @@ enum Role
     #[Desc('Read-only guest')]
     #[Instructions('Guest users can only view the existing records')]
     case GUEST;
+}
+
+#[Meta([IsActive::class])]
+enum ReferenceType: int
+{
+    use InvokableCases, Options, Names, Values, From, Metadata, Comparable;
+
+    #[IsActive(true)]
+    case ACTIVE_TYPE = 1;
+
+    case INACTIVE_TYPE = 0;
+}
+    
+#[Meta([Desc::class])]
+enum RoleWithoutAttribute
+{
+    use InvokableCases, Options, Names, Values, From, Metadata, Comparable;
+
+    case ADMIN;
 }
 
 enum MultiWordSnakeCaseEnum

@@ -73,6 +73,6 @@ class Reflection
             return $properties[0]->value;
         }
 
-        return null;
+        return $metaProperty::defaultValue() ?? null;
     }
 }

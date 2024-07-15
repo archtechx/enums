@@ -60,4 +60,12 @@ test('fromMeta throws an exception when the enum cannot be instantiated', functi
 
 test('tryFromMeta silently fails when the enum cannot be instantiated')
     ->expect(Role::tryFromMeta(Color::make('foobar')))
-    ->toBe(null);
+    ->toBeNull();
+
+test('metadata properties return null if missing on the case')
+    ->expect(RoleWithoutAttribute::ADMIN->desc())
+    ->toBeNull();
+
+test('metadata can have default values')
+    ->expect(ReferenceType::INACTIVE_TYPE->isActive())
+    ->toBeFalse();

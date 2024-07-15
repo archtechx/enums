@@ -12,6 +12,11 @@ abstract class MetaProperty
         $this->value = $this->transform($value);
     }
 
+    public static function defaultValue(): mixed
+    {
+        return null;
+    }
+
     public static function make(mixed $value): static
     {
         return new static($value);
