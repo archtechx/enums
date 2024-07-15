@@ -351,6 +351,8 @@ And now the returned color will be correctly transformed:
 TaskStatus::COMPLETED->color(); // 'text-green-500'
 ```
 
+You can also add a `defaultValue()` method to specify the value a case should have if it doesn't use the meta property. That way you can apply the attribute only on some cases and still get a configurable default value on all other cases.
+
 #### Use the `fromMeta()` method
 ```php
 TaskStatus::fromMeta(Color::make('green')); // TaskStatus::COMPLETED
