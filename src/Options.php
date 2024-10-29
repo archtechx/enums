@@ -23,7 +23,7 @@ trait Options
      * Generate a string format of the enum options using the provided callback and glue.
      * @param Closure(string $name, mixed $value): string $callback
      */
-    public static function stringOptions(Closure $callback = null, string $glue = '\n'): string
+    public static function stringOptions(?Closure $callback = null, string $glue = '\n'): string
     {
         $firstCase = static::cases()[0] ?? null;
 
