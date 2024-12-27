@@ -23,6 +23,8 @@ jobs:
             php: 8.2
           - laravel: 10
             php: 8.3
+          - laravel: 11
+            php: 8.4
 
     steps:
     - uses: actions/checkout@v2
