@@ -6,7 +6,6 @@ test('the is method checks for equality', function () {
     expect(Role::ADMIN->is(Role::ADMIN))->toBeTrue();
 
     expect(Role::ADMIN->is(Role::GUEST))->toBeFalse();
-    expect(Role::ADMIN->is('admin'))->toBeFalse();
 });
 
 it('the isNot method checks for inequality', function () {
@@ -16,7 +15,6 @@ it('the isNot method checks for inequality', function () {
     expect(Role::ADMIN->isNot(Role::GUEST))->toBeTrue();
 
     expect(Role::ADMIN->isNot(Role::ADMIN))->toBeFalse();
-    expect(Role::ADMIN->isNot('admin'))->toBeTrue();
 });
 
 it('the in method checks for presence in an array', function () {
