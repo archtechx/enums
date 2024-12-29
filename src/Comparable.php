@@ -19,7 +19,7 @@ trait Comparable
     public function in(iterable $enums): bool
     {
         foreach ($enums as $item) {
-            if ($item === $this) {
+            if ($this->is($item)) {
                 return true;
             }
         }
