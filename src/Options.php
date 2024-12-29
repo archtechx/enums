@@ -33,7 +33,7 @@ trait Options
 
         // [name, name]
         $options = static::options();
-        if (!$firstCase instanceof BackedEnum) {
+        if (! $firstCase instanceof BackedEnum) {
             // [name => name, name => name]
             $options = array_combine($options, $options);
         }

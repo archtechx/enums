@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace ArchTech\Enums;
 
-use Exception;
-use Iterator;
-use IteratorAggregate;
-
 trait Comparable
 {
     public function is(mixed $enum): bool
