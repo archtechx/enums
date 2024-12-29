@@ -51,6 +51,7 @@ class Reflection
     /**
      * Get the value of a meta property on the provided enum.
      *
+     * @param class-string<MetaProperty> $metaProperty
      * @param \Enum $enum
      */
     public static function metaValue(string $metaProperty, mixed $enum): mixed
