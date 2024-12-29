@@ -25,11 +25,12 @@ class Reflection
         // Traits except the `Metadata` trait
         $traits = array_values(array_filter($reflection->getTraits(), fn (ReflectionClass $class) => $class->getName() !== 'ArchTech\Enums\Metadata'));
 
-        foreach ($traits as $trait) {
-            $metaProperties = array_merge($metaProperties, static::parseMetaProperties($trait));
-        }
+        $traitsMeta = array_map(
+            fn (ReflectionClass $trait) => static::parseMetaProperties($trait),
+            $traits
+        );
 
-        return $metaProperties;
+        return array_merge($metaProperties, ...$traitsMeta);
     }
 
     /** @param ReflectionClass<object> $reflection */
