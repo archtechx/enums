@@ -25,5 +25,4 @@ parameters:
         #    paths:
         #        - tests/*
         # - '#should return \$this#'
-
-    checkMissingIterableValueType: false
+        - identifier: missingType.iterableValue

@@ -30,7 +30,7 @@ trait Metadata
         );
     }
 
-    public function __call(string $property, $arguments): mixed
+    public function __call(string $property, array $arguments): mixed
     {
         $metaProperties = Meta\Reflection::metaProperties($this);
 

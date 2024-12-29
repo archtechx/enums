@@ -23,6 +23,11 @@ it('the in method checks for presence in an array', function () {
     expect(Status::PENDING->in([Status::PENDING, Status::DONE]))->toBeTrue();
     expect(Role::ADMIN->in([Role::ADMIN]))->toBeTrue();
 
+    $iterator = new ArrayIterator([Status::PENDING, Status::DONE]);
+    expect(Status::PENDING->in($iterator))->toBeTrue();
+    expect(Status::DONE->in($iterator))->toBeTrue();
+    expect(Status::PENDING->in(new ArrayIterator([Role::ADMIN, Role::GUEST])))->toBeFalse();
+
     expect(Status::PENDING->in([Status::DONE]))->toBeFalse();
     expect(Status::PENDING->in([Role::ADMIN, Role::GUEST]))->toBeFalse();
 });
