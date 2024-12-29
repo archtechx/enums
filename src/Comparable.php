@@ -20,21 +20,9 @@ trait Comparable
         return ! $this->is($enum);
     }
 
-    public function in(array|object $enums): bool
+    public function in(iterable $enums): bool
     {
-        $iterator = $enums;
-
-        if (! is_array($enums)) {
-            if ($enums instanceof Iterator) {
-                $iterator = $enums;
-            } elseif ($enums instanceof IteratorAggregate) {
-                $iterator = $enums->getIterator();
-            } else {
-                throw new Exception('in() expects an iterable value');
-            }
-        }
-
-        foreach ($iterator as $item) {
+        foreach ($enums as $item) {
             if ($item === $this) {
                 return true;
             }
@@ -43,7 +31,7 @@ trait Comparable
         return false;
     }
 
-    public function notIn(array|object $enums): bool
+    public function notIn(iterable $enums): bool
     {
         return ! $this->in($enums);
     }
