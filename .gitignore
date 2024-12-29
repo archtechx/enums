@@ -4,5 +4,6 @@ composer.lock
 vendor/
 .php-cs-fixer.cache
 .vscode/
+.idea/
 coverage/
 node_modules
