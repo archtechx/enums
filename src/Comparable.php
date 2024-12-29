@@ -7,15 +7,16 @@ namespace ArchTech\Enums;
 use Exception;
 use Iterator;
 use IteratorAggregate;
+use UnitEnum;
 
 trait Comparable
 {
-    public function is(mixed $enum): bool
+    public function is(UnitEnum $enum): bool
     {
         return $this === $enum;
     }
 
-    public function isNot(mixed $enum): bool
+    public function isNot(UnitEnum $enum): bool
     {
         return ! $this->is($enum);
     }
