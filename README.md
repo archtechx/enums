@@ -460,6 +460,8 @@ includes:
   - ./vendor/archtechx/enums/extension.neon
 ```
 
+*Note: If you have installed [`phpstan/extension-installer`](https://github.com/phpstan/extension-installer#usage), the extension is automatically included.*
+
 ## Development
 
 Run all checks locally:

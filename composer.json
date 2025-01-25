@@ -34,5 +34,12 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "extra": {
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
+        }
     }
 }
