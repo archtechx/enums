@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ArchTech\Enums\Tests\PHPStan\InvokableCases;
 
 use PHPStan\Analyser\OutOfClassScope;

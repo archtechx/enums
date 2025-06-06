@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 test('the is method checks for equality', function () {
     expect(Status::PENDING->is(Status::PENDING))->toBeTrue();
     expect(Status::PENDING->is(Status::DONE))->toBeFalse();

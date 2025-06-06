@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use ArchTech\Enums\{Comparable, InvokableCases, Options, Names, Values, From, Metadata};
 use ArchTech\Enums\Meta\Meta;
 use ArchTech\Enums\Meta\MetaProperty;

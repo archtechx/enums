@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 test('pure enums can have metadata on cases', function () {
     expect(Role::ADMIN->color())->toBe('indigo');
     expect(Role::GUEST->color())->toBe('gray');
