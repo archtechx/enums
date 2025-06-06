@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 it('does not override the default BackedEnum from method')
     ->expect(Status::from(0))
     ->toBe(Status::PENDING);

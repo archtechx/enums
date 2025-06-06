@@ -29,13 +29,11 @@ trait Options
 
         if ($firstCase === null) {
             return '';
-        } elseif ($firstCase instanceof BackedEnum) {
-            // [name => value]
-            $options = static::options();
-        } else {
-            // [name, name]
-            $options = static::options();
+        }
 
+        // [name, name]
+        $options = static::options();
+        if (! $firstCase instanceof BackedEnum) {
             // [name => name, name => name]
             $options = array_combine($options, $options);
         }

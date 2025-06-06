@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use ArchTech\Enums\Tests\PHPStan\InvokableCases\InvokableCasesTestCase;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\StringType;

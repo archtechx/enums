@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 it('can return an associative array of options from a backed enum')
     ->expect(Status::options())->toBe([
         'PENDING' => 0,

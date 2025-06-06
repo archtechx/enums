@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use ArchTech\Enums\Exceptions\UndefinedCaseError;
 
 it('can be used as a static method with backed enums', function () {

@@ -15,7 +15,7 @@ trait From
      *
      * @throws ValueError
      */
-    public static function from(string $case): static
+    public static function from(int|string $case): static
     {
         return static::fromName($case);
     }
@@ -25,7 +25,7 @@ trait From
      *
      * This will not override the `tryFrom()` method on BackedEnums
      */
-    public static function tryFrom(string $case): ?static
+    public static function tryFrom(int|string $case): ?static
     {
         return static::tryFromName($case);
     }
@@ -37,7 +37,7 @@ trait From
      */
     public static function fromName(string $case): static
     {
-        return static::tryFromName($case) ?? throw new ValueError('"' . $case . '" is not a valid name for enum ' . static::class . '');
+        return static::tryFromName($case) ?? throw new ValueError('"' . $case . '" is not a valid name for enum ' . static::class);
     }
 
     /**

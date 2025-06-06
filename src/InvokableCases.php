@@ -15,7 +15,7 @@ trait InvokableCases
     }
 
     /** Return the enum's value or name when it's called ::STATICALLY(). */
-    public static function __callStatic($name, $args)
+    public static function __callStatic(string $name, array $args)
     {
         $cases = static::cases();
 
